@@ -1,43 +1,44 @@
 
 import React from 'react';
-import {View} from 'react-native'
-import {AppLoading} from 'expo';
+import { View } from 'react-native'
+// import {AppLoading} from 'expo';
+import AppLoading from 'expo-app-loading';
 import AppContainer from './src/navigation';
-import {PreloadingAssets} from './src/utils';
+import { PreloadingAssets } from './src/utils';
 
-class App extends React.Component{
-    constructor(props){
+class App extends React.Component {
+    constructor(props) {
         super(props);
-        this.state = {isReady: false};
+        this.state = { isReady: false };
     }
 
     componentWillMount = async () => {
         await this.loadAssetsAsynchrously();
     }
 
-    loadAssetsAsynchrously = () =>{
+    loadAssetsAsynchrously = () => {
         const imageAssets = PreloadingAssets.cacheImages();
         const fontsAssets = PreloadingAssets.cacheFonts();
     }
 
-    render(){
+    render() {
         console.disableYellowBox = true;
-        if(!this.state.isReady){
+        if (!this.state.isReady) {
             return (
                 <AppLoading
                     startAsync={this.loadAssetsAsynchrously}
-                    onFinish = {() =>{
-                        this.setState({isReady: true})
+                    onFinish={() => {
+                        this.setState({ isReady: true })
                         console.log('Apploading complete')
                     }}
                     onError={console.warn}
                 />
             );
         }
-        else{
-            return(
+        else {
+            return (
                 <View style={{ flex: 1 }}>
-                    <AppContainer/>
+                    <AppContainer />
                 </View>
             );
         }
